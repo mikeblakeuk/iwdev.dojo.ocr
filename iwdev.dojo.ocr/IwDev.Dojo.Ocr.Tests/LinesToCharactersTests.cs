@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IwDev.Dojo.Ocr.Tests
@@ -16,19 +17,13 @@ namespace IwDev.Dojo.Ocr.Tests
             var actual = e.ConvertBlockToChars(block);
 
             var expected = "0";
-
+            
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void WhenGivenTwoBlocksSplitIntoTwoChars()
         {
-            /*         var testData =
-                         "AAA BBB" +
-                         "AAA BBB"+
-                         "AAA BBB";
-                     */
-
             var realData =
                 "     _ " +
                 "  |  _|" +
@@ -39,29 +34,6 @@ namespace IwDev.Dojo.Ocr.Tests
             var actual = e.ConvertLongLineToBlocks(realData);
 
             Assert.AreEqual(2, actual.Count);
-        }
-
-        [TestMethod]
-        public void WhenGivenTwoBlocksSplitIntoTwoCharsAndEachIsCorrect()
-        {
-            /*         var testData =
-                         "AAA BBB" +
-                         "AAA BBB"+
-                         "AAA BBB";
-                     */
-
-            const string realData = "    _ " +
-                                    "  | _|" +
-                                    "  ||_";
-
-            var e = new BlockToCharsEngine();
-
-            var bucket = e.ConvertLongLineToBlocks(realData);
-
-            Assert.AreEqual(
-                "   " +
-                "  |" +
-                "  |", bucket[0]);
         }
 
         [TestMethod]
@@ -99,25 +71,6 @@ namespace IwDev.Dojo.Ocr.Tests
             Assert.AreEqual(1, actual.Count);
 
             Assert.AreEqual("AAAAAAAAA", actual[0]);
-        }
-
-
-        //[TestMethod]
-        public void TestThree()
-        {
-            var testData =
-                 "AAA" + Environment.NewLine +
-                 "AAA" + Environment.NewLine +
-                 "AAA" + Environment.NewLine +
-                 "BBBCCC" + Environment.NewLine +
-                 "BBBCCC" + Environment.NewLine +
-                 "BBBCCC" + Environment.NewLine;
-
-            var e = new BlockToCharsEngine();
-
-            var actual = e.ConvertLongLineToBlocks(testData);
-
-            Assert.AreEqual(2, actual.Count);
         }
     }
 }
