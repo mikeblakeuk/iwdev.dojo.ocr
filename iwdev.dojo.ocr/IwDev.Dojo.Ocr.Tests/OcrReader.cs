@@ -7,7 +7,7 @@ namespace IwDev.Dojo.Ocr.Tests
     public class OcrReader
     {
         // Pass this in?
-        private static readonly IDictionary<int, string> Blocks = new Dictionary<int, string>(10);
+        private static readonly Dictionary<int, string> Blocks = new Dictionary<int, string>(10);
 
         static OcrReader()
         {

@@ -3,7 +3,7 @@
 namespace IwDev.Dojo.Ocr.Tests
 {
     [TestClass]
-    public class WednesdayTryTests
+    public class OcrReaderTests
     {
         [TestMethod]
         public void ZeroToNineOneLine()
@@ -29,7 +29,6 @@ namespace IwDev.Dojo.Ocr.Tests
         [TestMethod]
         public void WithErrors()
         {
-            //var lines = File.ReadAllLines("testFile.txt");
             var lines = new[]
                 {
                     " _     _  _     _  _  _  _  _  ",
