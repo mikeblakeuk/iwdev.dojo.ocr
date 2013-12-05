@@ -9,7 +9,7 @@ namespace IwDev.Dojo.Ocr.Tests
         // Pass this in?
         private static readonly IDictionary<int, string> Blocks = new Dictionary<int, string>(10);
 
-        public OcrReader()
+        static OcrReader()
         {
             Blocks.Add(0, " _ " +
                           "| |" +
@@ -73,7 +73,7 @@ namespace IwDev.Dojo.Ocr.Tests
             var block = first + second + thrid;
             var known = Blocks.FirstOrDefault(x => x.Value == block);
             if (known.Value == null)
-                throw new ArgumentOutOfRangeException("Unknown : " + block);
+                return "?";
             // add 'guessing logic'
             return known.Key.ToString();
         }
