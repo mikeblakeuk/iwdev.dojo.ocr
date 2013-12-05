@@ -1,46 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 namespace IwDev.Dojo.Ocr.Tests
 {
     public class OcrReader
     {
-        // Pass this in?
-        public static readonly Dictionary<int, string> Blocks = new Dictionary<int, string>(10);
+        private readonly OcrGuesser _guesser;
+        private readonly AccountValidator _validator;
 
-        static OcrReader()
+        public OcrReader(OcrGuesser guesser, AccountValidator validator)
         {
-            Blocks.Add(0, " _ " +
-                          "| |" +
-                          "|_|");
-            Blocks.Add(1, "   " +
-                          "  |" +
-                          "  |");
-            Blocks.Add(2, " _ " +
-                          " _|" +
-                          "|_ ");
-            Blocks.Add(3, " _ " +
-                          " _|" +
-                          " _|");
-            Blocks.Add(4, "   " +
-                          "|_|" +
-                          "  |");
-            Blocks.Add(5, " _ " +
-                          "|_ " +
-                          " _|");
-            Blocks.Add(6, " _ " +
-                          "|_ " +
-                          "|_|");
-            Blocks.Add(7, " _ " +
-                          "  |" +
-                          "  |");
-            Blocks.Add(8, " _ " +
-                          "|_|" +
-                          "|_|");
-            Blocks.Add(9, " _ " +
-                          "|_|" +
-                          " _|");
+            _guesser = guesser;
+            _validator = validator;
         }
 
         public string[] LinesToNumbers(string[] lines)
@@ -55,9 +28,9 @@ namespace IwDev.Dojo.Ocr.Tests
             return numbers.ToArray();
         }
 
-        private static string ThreeLines(string one, string two, string three)
+        private string ThreeLines(string one, string two, string three)
         {
-            var numbers = new List<string>();
+            var numbers = new List<int[]>();
             // Trim if too long?
             // Check blocks of 3
             // Check all the same length
@@ -65,18 +38,26 @@ namespace IwDev.Dojo.Ocr.Tests
             {
                 numbers.Add(ThreeChars(one.Substring(i, 3), two.Substring(i, 3), three.Substring(i, 3)));
             }
-            return String.Join(String.Empty, numbers);
+
+            var stringVersion = new StringBuilder();
+
+            foreach (var possibleOptions in numbers)
+            {
+                if (possibleOptions.Length == 0)
+                {
+                    stringVersion.Append('?');
+                    continue;
+                }
+                // todo validate and look at other options
+                stringVersion.Append(possibleOptions[0]);
+            }
+            return stringVersion.ToString();
         }
 
-        private static string ThreeChars(string first, string second, string thrid)
+        private int[] ThreeChars(string first, string second, string thrid)
         {
             var block = first + second + thrid;
-            var known = Blocks.FirstOrDefault(x => x.Value == block);
-            if (known.Value == null)
-            {
-                return "?";
-            }
-            return known.Key.ToString();
+            return _guesser.Guesser(block);
         }
     }
 }
