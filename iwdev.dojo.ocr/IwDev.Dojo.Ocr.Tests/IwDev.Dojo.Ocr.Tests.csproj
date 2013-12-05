@@ -52,6 +52,9 @@
   <ItemGroup>
     <Compile Include="AccountValidator.cs" />
     <Compile Include="AccountValidatorTests.cs" />
+    <Compile Include="StringExtension.cs" />
+    <Compile Include="OcrGuesser.cs" />
+    <Compile Include="OcrGuesserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OcrReader.cs" />
     <Compile Include="OcrReaderTests.cs" />

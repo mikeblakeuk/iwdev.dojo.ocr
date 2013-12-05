@@ -7,7 +7,7 @@ namespace IwDev.Dojo.Ocr.Tests
     public class OcrReader
     {
         // Pass this in?
-        private static readonly Dictionary<int, string> Blocks = new Dictionary<int, string>(10);
+        public static readonly Dictionary<int, string> Blocks = new Dictionary<int, string>(10);
 
         static OcrReader()
         {
@@ -73,8 +73,9 @@ namespace IwDev.Dojo.Ocr.Tests
             var block = first + second + thrid;
             var known = Blocks.FirstOrDefault(x => x.Value == block);
             if (known.Value == null)
+            {
                 return "?";
-            // add 'guessing logic'
+            }
             return known.Key.ToString();
         }
     }
