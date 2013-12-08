@@ -1,4 +1,6 @@
-﻿namespace IwDev.Dojo.Ocr.Tests
+﻿using System.Linq;
+
+namespace IwDev.Dojo.Ocr.Tests
 {
     public class AccountValidator
     {
@@ -6,21 +8,37 @@
         public bool IsValid(string number)
         {
             // Could guess the number by padding the front with zeros
-            if (number == null || number.Length != 9)
+            if (number == null)
                 return false;
 
-            var total = 0;
-            var offSet = 1;
-            for (int i = number.Length - 1; i >= 1; i--)
+            var ints = new int[number.Length];
+            for (int i = 0; i < number.Length; i++)
             {
-                int singleInt;
-                if (!int.TryParse(number[i].ToString(), out singleInt))
+                int result;
+                if (!int.TryParse(number[i].ToString(), out result))
                     return false;
-            
-                total *= singleInt + (offSet++);
+                ints[i] = result;
             }
-            total *= number[0];
-            return total % 11 == 0;
+            return IsValid(ints);
         }
+
+        //(d1+2*d2+3*d3 +..+9*d9) mod 11 = 0
+        // Peek at https://code.google.com/p/danoncodekatas/source/browse/trunk/KataBankOCR/KataBankOCR/CheckSumValidator.cs
+        public bool IsValid(int[] number)
+        {
+            // Could guess the number by padding the front with zeros
+            if (number.Length != 9)
+                return false;
+
+            var sum = 0;
+            for (var pos = 1; pos <= 9; pos++)
+            {
+                sum += number[9 - pos] * pos;
+            }
+            return (sum % 11) == 0;
+
+        }
+
+
     }
 }

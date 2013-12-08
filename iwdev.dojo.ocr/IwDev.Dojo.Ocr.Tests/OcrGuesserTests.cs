@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace IwDev.Dojo.Ocr.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class OcrGuesserTests
     {
-        [TestMethod]
+        [Test]
         public void FixChar()
         {
             var data = " _ " +
@@ -18,7 +18,7 @@ namespace IwDev.Dojo.Ocr.Tests
             Assert.IsTrue(e.Contains(9));
         }
 
-        [TestMethod]
+        [Test]
         public void IgnoreCorners()
         {
             var data = "__ " +

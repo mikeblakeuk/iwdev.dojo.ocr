@@ -53,17 +53,15 @@ namespace IwDev.Dojo.Ocr.Tests
             // Could add extra guessing. eg Replace all unknown chars with ' ' or '.' with '_'
             var cleanData = data;
             var known = Blocks.FirstOrDefault(x => x.Value == cleanData);
-            if (known.Value != null)
-                return new[] { known.Key };
+            if (known.Value != null) 
+                guesses.Add(known.Key);
 
             var underScores = new[] { 1, 4, 7 };
 
             for (var i = 0; i < cleanData.Length; i++)
             {
-                var guess = cleanData;
-                guess = underScores.Contains(i) 
-                            ? guess.ReplaceAtIndex(i, cleanData[i] == ' ' ? '_' : ' ') 
-                            : guess.ReplaceAtIndex(i, cleanData[i] == ' ' ? '|' : ' ');
+                var charToReplace = underScores.Contains(i) ? '_' : '|'; 
+                var guess = cleanData.ReplaceAtIndex(i, cleanData[i] == ' ' ? charToReplace : ' ');
 
                 var known2 = Blocks.FirstOrDefault(x => x.Value == guess);
                 if (known2.Value != null)
