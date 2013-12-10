@@ -25,9 +25,9 @@ namespace IwDev.Dojo.Ocr.Tests
         {
             var numbers = new List<OcrResult>();
             // Check Line count is correct mod 4
-            for (var i = 0; i < lines.Length - 3; i += 4)
+            for (var i = 0; i + 3 < lines.Length; i += 4)
             {
-                // Check lines[i +3] == string.Empty;
+                // Check lines[i + 3] == string.Empty;
                 numbers.Add(ThreeLines(lines[i], lines[i + 1], lines[i + 2]));
             }
             return numbers.ToArray();
@@ -78,13 +78,13 @@ namespace IwDev.Dojo.Ocr.Tests
                         accountNumbers.Add(IntsToStrings(currentGuess));
                 }
                 currentGuess[accountCharIndex] = possibleOption[0];
-                
+
                 accountCharIndex++;
             }
             return accountNumbers;
         }
 
-        private static string LinesToPossibleNumbers(List<int[]> numbers)
+        private static string LinesToPossibleNumbers(IEnumerable<int[]> numbers)
         {
             var stringVersion = new StringBuilder();
 
@@ -102,7 +102,7 @@ namespace IwDev.Dojo.Ocr.Tests
         }
 
 
-        private static string IntsToStrings(int[] numbers)
+        private static string IntsToStrings(IEnumerable<int> numbers)
         {
             var stringVersion = new StringBuilder();
 
@@ -128,5 +128,25 @@ namespace IwDev.Dojo.Ocr.Tests
         public List<string> AccountNumberOptions { get; set; }
 
         public bool AccountNumberIsValid { get; set; }
+
+        public string Display
+        {
+            get
+            {
+                if (AccountNumberIsValid)
+                    return AccountNumber;
+                if (AccountNumberOptions.Count == 0)
+                    return AccountNumber + " ILL";
+                if (AccountNumberOptions.Count == 1)
+                    return AccountNumberOptions[0];
+
+                // TODO
+                var xx = AccountNumberOptions
+                    .OrderBy(x => x).ToList();
+
+                return AccountNumber + " AMB [" + xx
+                    .Join(", ", "'{0}'") + "]";
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.IO;
+using NUnit.Framework;
 
 namespace IwDev.Dojo.Ocr.Tests
 {
@@ -111,5 +112,29 @@ namespace IwDev.Dojo.Ocr.Tests
             Assert.AreEqual(true, result[0].AccountNumberOptions.Contains("711111111"));
         }
 
+        [Test]
+        public void UserCase4()
+        {
+            var lines = File.ReadAllLines("UseCase4.txt");
+            var result = Target.LinesToAccountNumbers(lines);
+
+            int i = 0;
+
+            Assert.AreEqual("711111111", result[i].Display);
+            Assert.AreEqual("777777177", result[++i].Display);
+            Assert.AreEqual("200800000", result[++i].Display);
+            Assert.AreEqual("333393333", result[++i].Display);
+            Assert.AreEqual("888888888 AMB ['888886888', '888888880', '888888988']", result[++i].Display);
+            Assert.AreEqual("555555555 AMB ['555655555', '559555555']", result[++i].Display);
+            Assert.AreEqual("666666666 AMB ['666566666', '686666666']", result[++i].Display);
+            Assert.AreEqual("999999999 AMB ['899999999', '993999999', '999959999']", result[++i].Display);
+            Assert.AreEqual("490067715 AMB ['490067115', '490067719', '490867715']", result[++i].Display);
+
+            i = i + 1;
+            //Assert.AreEqual("123456789", result[++i].Display);
+
+            Assert.AreEqual("000000051", result[++i].Display);
+            Assert.AreEqual("490867715", result[++i].Display);
+        }
     }
 }

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AccountValidator.cs" />
     <Compile Include="AccountValidatorTests.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="OcrGuesser.cs" />
     <Compile Include="OcrGuesserTests.cs" />
@@ -64,6 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UseCase4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
