@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IwDev.Dojo.Ocr.Tests
+namespace IwDev.Dojo.Ocr
 {
     public static class StringExtension
     {

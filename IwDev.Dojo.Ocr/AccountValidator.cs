@@ -1,25 +1,20 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace IwDev.Dojo.Ocr.Tests
+namespace IwDev.Dojo.Ocr
 {
     public class AccountValidator
     {
-        //(d1+2*d2+3*d3 +..+9*d9) mod 11 = 0
-        public bool IsValid(string number)
+        public bool IsValid(string accountNumer)
         {
-            // Could guess the number by padding the front with zeros
-            if (number == null)
-                return false;
-
-            var ints = new int[number.Length];
-            for (int i = 0; i < number.Length; i++)
+            var ints = new List<int>();
+            foreach (var singleChar in accountNumer)
             {
                 int result;
-                if (!int.TryParse(number[i].ToString(), out result))
+                if (!int.TryParse(singleChar.ToString(), out result))
                     return false;
-                ints[i] = result;
+                ints.Add(result);
             }
-            return IsValid(ints);
+            return IsValid(ints.ToArray());
         }
 
         //(d1+2*d2+3*d3 +..+9*d9) mod 11 = 0
@@ -38,7 +33,5 @@ namespace IwDev.Dojo.Ocr.Tests
             return (sum % 11) == 0;
 
         }
-
-
     }
 }

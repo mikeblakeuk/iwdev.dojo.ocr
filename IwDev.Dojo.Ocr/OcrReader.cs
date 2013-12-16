@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IwDev.Dojo.Ocr.Tests
+namespace IwDev.Dojo.Ocr
 {
     public class OcrReader
     {

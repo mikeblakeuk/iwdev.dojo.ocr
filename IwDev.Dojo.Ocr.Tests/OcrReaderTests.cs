@@ -102,7 +102,6 @@ namespace IwDev.Dojo.Ocr.Tests
                     "                           ",
                     "  |  |  |  |  |  |  |  |  |",
                     "  |  |  |  |  |  |  |  |  |",
-
                     ""
                 };
             var result = Target.LinesToAccountNumbers(lines);
