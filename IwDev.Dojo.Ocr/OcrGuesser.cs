@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace IwDev.Dojo.Ocr
 {
@@ -40,6 +42,31 @@ namespace IwDev.Dojo.Ocr
             Blocks.Add(9, " _ " +
                           "|_|" +
                           " _|");
+        }
+
+        public string UnGuesser(IEnumerable<int> ints)
+        {
+            var sb1 = new StringBuilder();
+            var sb2 = new StringBuilder();
+            var sb3 = new StringBuilder();
+            foreach (var i in ints)
+            {
+                if (Blocks.ContainsKey(i))
+                {
+                    sb1.Append(Blocks[i][0]);
+                    sb1.Append(Blocks[i][1]);
+                    sb1.Append(Blocks[i][2]);
+
+                    sb2.Append(Blocks[i][3]);
+                    sb2.Append(Blocks[i][4]);
+                    sb2.Append(Blocks[i][5]);
+
+                    sb3.Append(Blocks[i][6]);
+                    sb3.Append(Blocks[i][7]);
+                    sb3.Append(Blocks[i][8]);
+                }
+            }
+            return sb1 + Environment.NewLine + sb2 + Environment.NewLine + sb3 + Environment.NewLine;
         }
 
         public int[] Guesser(string data)
